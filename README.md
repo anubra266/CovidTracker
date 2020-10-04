@@ -10,5 +10,5 @@ I had to play around with something I just learnt.(Dynamic Live Theming) 🙏
 
 `I used Ant-Design`
 
-What I now have with [Ant Design](https://ant.design), is like a blood Covenant. It's them for Life.
+What I now have with [Ant Design](https://ant.design), is like a blood Covenant. It's them for Life. 💌
 
