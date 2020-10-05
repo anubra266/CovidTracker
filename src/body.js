@@ -8,7 +8,7 @@ import Col from "antd/lib/col";
 import Typography from "antd/lib/typography";
 import axios from "axios";
 
-const Body = () => {
+const Body = ({ region }) => {
 	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState(null);
 

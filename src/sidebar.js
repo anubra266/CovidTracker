@@ -8,7 +8,7 @@ import Col from "antd/lib/col";
 import Select from "antd/lib/select";
 import axios from "axios";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 	const [summary, setSummary] = useState(null);
 	const getSummary = () => {
 		axios({
@@ -23,6 +23,7 @@ const Sidebar = () => {
 				console.log(error);
 			});
 	};
+
 	useEffect(() => {
 		getSummary();
 		setInterval(() => {
@@ -37,7 +38,7 @@ const Sidebar = () => {
 			{summary && (
 				<Row gutter={[16, 16]} style={{ padding: 8 }}>
 					<Col span={24}>
-						<ChangeRegion />
+						<ChangeRegion {...props} />
 					</Col>
 					<Col span={24}>
 						<Card>
@@ -73,24 +74,49 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const ChangeRegion = () => {
+const ChangeRegion = ({ setRegion }) => {
+	const [countries, setCountries] = useState(null);
+	const getCountries = () => {
+		axios({
+			method: "get",
+			url: "https://api.covid19api.com/countries",
+			headers: {},
+		})
+			.then(function (response) {
+				setCountries(response.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	};
 	function onChange(value) {
-		console.log(`selected ${value}`);
+		setRegion(value);
 	}
+	useEffect(() => {
+		getCountries();
+	}, []);
 	return (
 		<Select
 			showSearch
 			style={{ width: "100%" }}
-			placeholder="Select a region"
+			placeholder="Search Countries"
 			optionFilterProp="children"
 			onChange={onChange}
 			filterOption={(input, option) =>
 				option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 			}
 		>
-			<Select.Option value="jack">General</Select.Option>
-			<Select.Option value="lucy">United States</Select.Option>
-			<Select.Option value="tom">Nigeria</Select.Option>
+			{countries ? (
+				countries.map((country, index) => {
+					return (
+						<Select.Option key={index} value={country.Slug}>
+							{country.Country}
+						</Select.Option>
+					);
+				})
+			) : (
+				<Select.Option value={null}>Loading Countries...</Select.Option>
+			)}
 		</Select>
 	);
 };

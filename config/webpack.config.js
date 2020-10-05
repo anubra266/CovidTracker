@@ -25,14 +25,6 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
-const { getLessVars } = require("antd-theme-generator");
-
-const AntDesignThemePlugin = require("antd-theme-webpack-plugin");
-
-
-
-// const antdPlugin = new AntDesignThemePlugin(options);
-const antdPlugin = new AntDesignThemePlugin({});
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -517,7 +509,6 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      antdPlugin,
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
